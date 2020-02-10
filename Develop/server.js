@@ -10,3 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
+
+// Importing get, post, and delete functions
+require('./routes/apiroutes')(app);
+require('./routes/htmlroutes')(app);
