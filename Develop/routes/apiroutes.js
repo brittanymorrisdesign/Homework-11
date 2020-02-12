@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
+const db = require('../db/db.json');
 
 // ===============================================================================
 // ROUTING
@@ -39,39 +40,37 @@ module.exports = function(app) {
 
     // API POST Requests
 
-    app.post('/api/notes', function(req, res) {
-      fs.readFile(path.join(__dirname, '../db/db.json'), (err, data) => {
-        if (err) throw err;
-        const newNote = req.body;
-        // let id = Math.floor(Math.random() * 1000);
-        const notesArr = JSON.parse(data);
-        const id = notesArr[notesArr.length - 1].id + 1;
-        newNote.id = id;
-        notesArr.push(newNote);
-        // req.body + `{"id":"${id}"}`);
-        const notesString = JSON.stringify(notesArr);
-        console.log(typeof notesString);
-        fs.writeFileSync(path.join(__dirname, '../db/db.json'), notesString);
+    app.post('/api/db', function(req, res) {
+      const note = req.body;
+
+      console.log(`Adding note: ${note.title}`);
+      db.push(note);
+
+      writeFileAsync(
+        path.join(__dirname, '../db/db.json'),
+        JSON.stringify(db)
+      ).then(() => {
+        console.log('Jobs done!');
       });
+      res.json(note);
     });
 
     // API DELETE Requests
     // API route that allows user to delete a note and updates json data
-    app.delete('/api/notes/:id', function(req, res) {
-      const selectedNoteId = req.params.id;
-      // Read and remove new note to json data
-      readFileAsync('./db/db.json', 'utf8').then(function(data) {
-        // Object into string, splice selected Note by id to remove from array and reset index.
-        data = JSON.parse(data);
-        data.splice(selectedNoteId, 1);
-        for (let i = 0; i < data.length; i++) {
-          data[i].id = i;
-        }
-        // Update the json data with removed notes
-        writeFileAsync('./db/db.json', JSON.stringify(data));
-        res.json(data);
-        console.log('Note succesfully removed!');
+    app.delete('/api/db', function(req, res) {
+      const { id } = req.body;
+      console.log('Note succesfully removed!');
+
+      db.splice(id, 1);
+
+      writeFileAsync(
+        path.join(__dirname, '../db/db.json'),
+        JSON.stringify(db)
+      ).then(() => {
+        console.log('Note succesfully created!');
       });
+
+      res.json(id);
     });
   };
 };
