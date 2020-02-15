@@ -4,14 +4,10 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
 const fs = require('fs');
-const path = require('path');
-const util = require('util');
-const userNotes = require('../db/db.json');
 
 // ===============================================================================
 // ROUTING
 // ===============================================================================
-const writeFileAsync = util.promisify(fs.writeFile);
 
 module.exports = function(app) {
   // API GET Requests
@@ -19,12 +15,12 @@ module.exports = function(app) {
   // In each of the below cases when a user visits a link
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
-  // Exporting get/post/delete
+  // Routes - one to index, one to notes
   app.get('/api/notes', function(req, res) {
-    fs.readFile(path.join(__dirname, '../db/db.json'), (err, data) => {
+    fs.readFile('./db/db.json', (err, data) => {
       if (err) throw err;
-      console.log(JSON.parse(data));
-      res.json(JSON.parse(data));
+      dbData = JSON.parse(data);
+      res.send(dbData);
     });
   });
 
@@ -38,33 +34,56 @@ module.exports = function(app) {
 
   // API POST Requests
 
-  app.post('/api/db', function(req, res) {
-    const newNote = req.body;
+  app.post('/api/notes', function(req, res) {
+    const userNotes = req.body;
 
-    console.log(`Adding note: ${newNote.title}`);
-    userNotes.push(newNote);
+    fs.readFile('./db/db.json', (err, data) => {
+      if (err) throw err;
+      dbData = JSON.parse(data);
+      dbData.push(userNotes);
+      let number = 1;
+      dbData.forEach((note, index) => {
+        note.id = number;
+        number++;
+        return dbData;
+      });
+      console.log(dbData);
 
-    writeFileAsync(
-      path.join(__dirname, '../db/db.json'),
-      JSON.stringify(userNotes)
-    ).then(() => {});
-    res.json(newNote);
+      stringData = JSON.stringify(dbData);
+
+      fs.writeFile('./db/db.json', stringData, (err, data) => {
+        if (err) throw err;
+      });
+    });
+    res.send('Thank you for your note!');
   });
 
   // API DELETE Requests
   // API route that allows user to delete a note and updates json data
-  app.delete('/api/db', function(req, res) {
-    const { id } = req.body;
-    console.log('Note has been removed!');
+  app.delete('/api/notes/:id', function(req, res) {
+    // Gets id number of note to delete
+    const deleteNote = req.params.id;
+    console.log(deleteNote);
 
-    userNotes.splice(id, 1);
+    fs.readFile('./db/db.json', (err, data) => {
+      if (err) throw err;
 
-    writeFileAsync(
-      path.join(__dirname, '../db/db.json'),
-      JSON.stringify(userNotes)
-    ).then(() => {
-      console.log('Note has been created!');
+      // Comparing each note's id to delete note
+      dbData = JSON.parse(data);
+      // for each function, comparing each note's id to the chosen_for_death variable
+      for (let i = 0; i < dbData.length; i++) {
+        if (dbData[i].id === Number(deleteNote)) {
+          dbData.splice([i], 1);
+        }
+      }
+      console.log(dbData);
+      stringData = JSON.stringify(dbData);
+
+      fs.writeFile('./db/db.json', stringData, (err, data) => {
+        if (err) throw err;
+      });
     });
-    res.json(id);
+    // Express response.status(204)
+    res.status(204).send();
   });
 };

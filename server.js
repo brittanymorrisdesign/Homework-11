@@ -4,8 +4,6 @@
 // ==============================================================================
 
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -27,10 +25,8 @@ app.use(express.static('public'));
 // The below points our server to a series of "route" files.
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
-
 require('./routes/apiroutes')(app);
 require('./routes/htmlroutes')(app);
-
 // =============================================================================
 // LISTENER
 // The below code effectively "starts" our server
