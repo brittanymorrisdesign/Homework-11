@@ -3,7 +3,7 @@ Node.js and ES6+
 
 Objective: An application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
-Deployed app: https://infinite-thicket-62667.herokuapp.com
+Deployed app: https://salty-forest-70625.herokuapp.com
 Github Page: https://brittanymorrisdesign.github.io/Homework-11
 
 # Express: Note Taker
