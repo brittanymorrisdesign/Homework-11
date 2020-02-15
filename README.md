@@ -6,7 +6,8 @@ Objective: An application that can be used to write, save, and delete notes. Thi
 Deployed app: https://salty-forest-70625.herokuapp.com  <br/> 
 Github Page: https://brittanymorrisdesign.github.io/Homework-11
 
-<img width="1402" alt="Screen Shot 2020-02-15 at 1 01 57 AM" src="https://user-images.githubusercontent.com/44029053/74582835-d6728080-4f8e-11ea-9b06-63d4a4e41602.png">
+![Notetaker](https://user-images.githubusercontent.com/44029053/74582986-8694b900-4f90-11ea-9ef3-3ab2ff991b12.gif)
+
 
 # Express: Note Taker
 For users that need to keep track of a lot of information, it's easy to forget or be unable to recall something important. Being able to take persistent notes allows users to have written information available when needed.
