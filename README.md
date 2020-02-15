@@ -6,7 +6,7 @@ Objective: An application that can be used to write, save, and delete notes. Thi
 Deployed app: https://salty-forest-70625.herokuapp.com  <br/> 
 Github Page: https://brittanymorrisdesign.github.io/Homework-11
 
-![Notetaker](https://user-images.githubusercontent.com/44029053/74582986-8694b900-4f90-11ea-9ef3-3ab2ff991b12.gif)
+<img width="1402" alt="Screen Shot 2020-02-15 at 1 01 57 AM" src="https://user-images.githubusercontent.com/44029053/74583079-45e96f80-4f91-11ea-8fc8-9b34023d68b2.png">
 
 
 # Express: Note Taker
