@@ -5,9 +5,9 @@ Node.js and ES6+
 An application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
 Deployed app: https://salty-forest-70625.herokuapp.com  <br/> 
-Github Page: https://brittanymorrisdesign.github.io/Homework-11
+Github Page: https://brittanymorrisdesign.github.io/Homework-11 <br/> 
 
-<img width="1402" alt="Screen Shot 2020-02-15 at 1 01 57 AM" src="https://user-images.githubusercontent.com/44029053/74583079-45e96f80-4f91-11ea-8fc8-9b34023d68b2.png">
+![bg-showcase-3](https://user-images.githubusercontent.com/44029053/77262034-4f898580-6c69-11ea-8994-935a2dd0d757.png)
 
 
 # Express: Note Taker
@@ -25,4 +25,4 @@ SO THAT I can organize my thoughts and keep track of tasks I need to complete
 * Node.js
 * Express.js
 * mySQL
-* npm module
+* npm modules
